@@ -1,8 +1,11 @@
+'use server';
 
 import React from 'react';
 import { Button, FormProps, Typography, Checkbox, Form, Input } from 'antd';
-import { signIn, auth, providerMap } from "@/app/auth"
-import { AuthError } from "next-auth"
+import { signIn, auth, providerMap } from '@/app/auth';
+import { AuthError } from 'next-auth';
+import useSession from '../hooks/useSession';
+import SignInButton from '../common/SignInButton';
 
 type Props = {};
 
@@ -30,10 +33,9 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
-export default async function LoginPage({ }: Props) {
-  console.log(11, process.env.AUTH_GITHUB_ID);
-  const session = await auth()
-  console.log('session', session?.user)
+export default async function LoginPage({}: Props) {
+  const session = await auth();
+  console.log('session', session?.user);
   return (
     <div className="flex items-center justify-center min-h-screen">
       {/* <Form
@@ -67,36 +69,7 @@ export default async function LoginPage({ }: Props) {
           </Button>
         </Form.Item>
       </Form> */}
-
-      <div className="flex flex-col gap-2">
-        {Object.values(providerMap).map((provider) => (
-          <form
-            action={async () => {
-              "use server"
-              try {
-                await signIn(provider.id)
-              } catch (error) {
-                // Signin can fail for a number of reasons, such as the user
-                // not existing, or the user not having the correct role.
-                // In some cases, you may want to redirect to a custom error
-                if (error instanceof AuthError) {
-                  // return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
-                }
-
-                // Otherwise if a redirects happens NextJS can handle it
-                // so you can just re-thrown the error and let NextJS handle it.
-                // Docs:
-                // https://nextjs.org/docs/app/api-reference/functions/redirect#server-component
-                throw error
-              }
-            }}
-          >
-            <button type="submit">
-              <span>Sign in with {provider.name}</span>
-            </button>
-          </form>
-        ))}
-      </div>
+      <SignInButton />
     </div>
   );
 }
