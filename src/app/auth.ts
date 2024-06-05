@@ -1,16 +1,19 @@
 import NextAuth from 'next-auth';
 import Cognito from 'next-auth/providers/cognito';
 import GitHub from 'next-auth/providers/github';
-import type { Provider } from "next-auth/providers"
+import type { Provider } from 'next-auth/providers';
 
-const providers: Provider[] =  [Cognito, GitHub]
+const providers: Provider[] = [
+  // Cognito,
+  GitHub,
+];
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: providers,
-  basePath: '/auth',
-  pages: {
-    signIn: "/signin",
-  },
+  // basePath: '/auth',
+  // pages: {
+  //   signIn: '/signin',
+  // },
   // callbacks: {
   //   authorized({ request, auth }) {
   //     const { pathname } = request.nextUrl
@@ -38,10 +41,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 });
 
 export const providerMap = providers.map((provider) => {
-  if (typeof provider === "function") {
-    const providerData = provider()
-    return { id: providerData.id, name: providerData.name }
+  if (typeof provider === 'function') {
+    const providerData = provider();
+    return { id: providerData.id, name: providerData.name };
   } else {
-    return { id: provider.id, name: provider.name }
+    return { id: provider.id, name: provider.name };
   }
-})
+});
