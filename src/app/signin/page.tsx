@@ -6,6 +6,7 @@ import { signIn, auth, providerMap } from '@/app/auth';
 import { AuthError } from 'next-auth';
 import useSession from '../hooks/useSession';
 import SignInButton from '../common/SignInButton';
+import { SignOutButton } from '../common/SignOutButton';
 
 type Props = {};
 
@@ -69,7 +70,13 @@ export default async function LoginPage({}: Props) {
           </Button>
         </Form.Item>
       </Form> */}
-      <SignInButton />
+      <div>
+        <SignInButton />
+
+        <div className="py-[20px]">
+          <SignOutButton />
+        </div>
+      </div>
     </div>
   );
 }
