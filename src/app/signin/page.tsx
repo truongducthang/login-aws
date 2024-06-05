@@ -71,6 +71,9 @@ export default async function LoginPage({}: Props) {
         </Form.Item>
       </Form> */}
       <div>
+        <div>
+          <pre>{JSON.stringify(session, null, 2)}</pre>
+        </div>
         <SignInButton />
 
         <div className="py-[20px]">
