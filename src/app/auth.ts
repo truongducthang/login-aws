@@ -3,10 +3,15 @@ import Cognito from 'next-auth/providers/cognito';
 import GitHub from 'next-auth/providers/github';
 import type { Provider } from 'next-auth/providers';
 
-const useSecureCookies = ((process.env.NEXTAUTH_URL as any) ?? '').startsWith('https://')
-const cookiePrefix = useSecureCookies ? '__Secure-' : ''
-const hostName = 'localhost'
-const rootDomain = "fpl.com";
+const useSecureCookies = ((process.env.NEXTAUTH_URL as any) ?? '').startsWith(
+  'https://'
+);
+const cookiePrefix = useSecureCookies ? '__Secure-' : '';
+// const hostName = 'localhost'
+const hostName = process.env.NEXTAUTH_URL
+  ? new URL(process.env.NEXTAUTH_URL).hostname
+  : 'localhost';
+const rootDomain = 'fpl.com';
 
 const providers: Provider[] = [
   // Cognito,
@@ -18,7 +23,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
   },
- 
+
   secret: process.env.NEXT_AUTH_SECRET,
   cookies: {
     sessionToken: {
