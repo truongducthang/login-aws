@@ -9,7 +9,7 @@ const nextConfig = {
         AUTH_GITHUB_SECRET: '4bd10c5ec17c3733949fd90c2d91b2b770c93d80',
 
         NEXT_AUTH_SECRET:'NEXT_AUTH_SECRET',
-        NEXTAUTH_URL: 'login-aws-tdt-1.vercel.app'
+        NEXTAUTH_URL: 'https://login-aws-tdt-1.vercel.app'
     },
     trailingSlash: false
 };
