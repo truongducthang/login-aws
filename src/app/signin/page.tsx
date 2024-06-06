@@ -35,8 +35,8 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 };
 
 export default async function LoginPage({}: Props) {
-  // const session = await auth();
-  // console.log('session', session?.user);
+  const session = await auth();
+  console.log('session', session?.user);
   return (
     <div className="flex items-center justify-center min-h-screen">
       {/* <Form
@@ -72,7 +72,7 @@ export default async function LoginPage({}: Props) {
       </Form> */}
       <div>
         <div>
-        {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
+        <pre>{JSON.stringify(session, null, 2)}</pre>
         </div>
         <SignInButton />
 
