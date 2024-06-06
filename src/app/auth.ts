@@ -8,10 +8,8 @@ const useSecureCookies = ((process.env.NEXTAUTH_URL as any) ?? '').startsWith(
 );
 const cookiePrefix = useSecureCookies ? '__Secure-' : '';
 // const hostName = 'localhost'
-const hostName = process.env.NEXTAUTH_URL
-  ? new URL(process.env.NEXTAUTH_URL).hostname
-  : 'localhost';
-const rootDomain = 'fpl.com';
+// const hostName = process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : 'localhost';
+const rootDomain = "vercel.app";
 
 const providers: Provider[] = [
   // Cognito,
@@ -33,7 +31,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         sameSite: 'lax',
         path: '/',
         secure: useSecureCookies,
-        domain: hostName == 'localhost' ? hostName : '.' + rootDomain, // add a . in front so that subdomains are included
+        // domain: hostName == 'localhost' ? hostName : '.' + rootDomain, // add a . in front so that subdomains are included,
+        domain: '.' + rootDomain, // add a . in front so that subdomains are included
       },
     },
   },
